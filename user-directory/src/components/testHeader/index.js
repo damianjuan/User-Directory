@@ -8,6 +8,7 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -63,21 +64,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({ state, handleInputChange, handleFormSubmit }) {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
+                    {/* <IconButton
                         edge="start"
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
                     >
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <Typography className={classes.title} variant="h6" noWrap>
                         Employee Directory
           </Typography>
@@ -92,6 +93,7 @@ export default function SearchAppBar() {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={handleInputChange}
                         />
                     </div>
                 </Toolbar>
