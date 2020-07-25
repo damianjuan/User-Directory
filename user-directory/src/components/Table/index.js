@@ -1,64 +1,70 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import React, { Component } from 'react';
+import { TableContainer, Paper, Table, TableHead, TableCell, TableBody, TableRow, Avatar } from '@material-ui/core';
+import API from '../../utils/API'
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-});
+// //test data for testing table generation
+// function createData(name, number, email, location) {
+//     return { name, number, email, location };
+// }
+// //test data
+// const rows = [
+//     createData('Test One', 8165555555, 'one@email.com', 'kc'),
+//     createData('Test Two', 4095555555, 'two@email.com', 'galveston'),
+// ];
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
+class EmployeeTable extends Component {
+    state = {
+        results: [],
+        search: ""
+    };
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+    // when table component mounts get employees from API and assign to results state
+    componentDidMount() {
+        API.getUsers()
+            .then(res => this.setState({ results: res.data.results }))
+            .catch(err => console.log(err));
 
-export default function SimpleTable() {
-    const classes = useStyles();
+    }
 
-    return (
-        <Grid item xs={12}>
+    render() {
+        const rows = this.state.results;
+        return (
 
             <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Dessert (100g serving)</TableCell>
-                            <TableCell align="right">Calories</TableCell>
-                            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                            <TableCell></TableCell>
+                            <TableCell align="right">Name</TableCell>
+                            <TableCell align="right">Phone Number</TableCell>
+                            <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Location</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.name}>
-                                <TableCell component="th" scope="row">
-                                    {row.name}
-                                </TableCell>
-                                <TableCell align="right">{row.calories}</TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
-                                <TableCell align="right">{row.protein}</TableCell>
+                        {rows.length ?
+
+                            rows.map((res) => (
+                                <TableRow key={res.id.value}>
+                                    <TableCell component="th" scope="rows">
+                                        <Avatar alt={res.name.first} src={res.picture.thumbnail} />
+                                    </TableCell>
+                                    <TableCell align="right">{res.name.first} {res.name.last}</TableCell>
+                                    <TableCell align="right">{res.phone}</TableCell>
+                                    <TableCell align="right">{res.email}</TableCell>
+                                    <TableCell align="right">{res.location.city},    {res.location.state}</TableCell>
+                                </TableRow>
+                            ))
+                            :
+                            <TableRow>
+                                <TableCell align="center" >Loading</TableCell>
                             </TableRow>
-                        ))}
+                        }
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Grid>
-    );
-}
+        )
+    }
+};
+
+export default EmployeeTable;
