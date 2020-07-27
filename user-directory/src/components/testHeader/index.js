@@ -65,7 +65,7 @@ export default function SearchAppBar({ state, handleInputChange, handleFormSubmi
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} >
             <AppBar position="static">
                 <Toolbar>
                     {/* <IconButton

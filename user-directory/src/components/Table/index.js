@@ -10,6 +10,10 @@ class EmployeeTable extends Component {
     };
     // when table component mounts get employees from API and assign to results state
     componentDidMount() {
+        this.getEmployees();
+    };
+
+    getEmployees() {
         API.getUsers()
             .then(res => this.setState({ results: res.data.results }))
             .catch(err => console.log(err));
@@ -67,10 +71,10 @@ class EmployeeTable extends Component {
 
 
 
-            <TableContainer component={Paper}>
-                <form className="form-inline">
+            <TableContainer component={Paper} >
+                <form className="form-inline" style={{ marginTop: "5px", marginLeft: "5px" }} >
                     <input
-                        className="form-control mr-sm-2"
+                        className="form-control mr-sm-2 m1"
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
@@ -78,10 +82,16 @@ class EmployeeTable extends Component {
                         onChange={this.handleInputChange}
                         name="userInput" />
                     <button
-                        className="btn btn-outline-success my-2 my-sm-0"
+                        className="btn btn-outline-primary my-2 my-sm-0"
                         type="submit"
                         onClick={this.handleFormSubmit}
                     >Search</button>
+                    <button
+                        className="btn btn-outline-primary my-2 my-sm-0"
+                        type="submit"
+                        onClick={this.getEmployees}
+                        style={{ marginLeft: "8px" }}
+                    >Show All Employees</button>
                 </form>
 
                 <Table>
