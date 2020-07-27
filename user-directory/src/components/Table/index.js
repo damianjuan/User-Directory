@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TableContainer, Paper, Table, TableHead, TableCell, TableBody, TableRow, Avatar, TableSortLabel } from '@material-ui/core';
 import API from '../../utils/API'
 
-
+//used class to store state
 class EmployeeTable extends Component {
     state = {
         results: [],
@@ -13,12 +13,14 @@ class EmployeeTable extends Component {
         this.getEmployees();
     };
 
+    // function to make api call
     getEmployees() {
         API.getUsers()
             .then(res => this.setState({ results: res.data.results }))
             .catch(err => console.log(err));
     }
 
+    //update state with user input as it changes. must do so that userInput state is set before handleFormSubmit fires or the search wont be complete
     handleInputChange = event => {
         // Getting the value and name of the input which triggered the change
         event.preventDefault();
@@ -31,6 +33,7 @@ class EmployeeTable extends Component {
         });
     };
 
+    //search employees. regexp allows search for exact and partial matches without the need to convert all to upper or lower etc. 
     handleFormSubmit = event => {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
@@ -57,13 +60,29 @@ class EmployeeTable extends Component {
             //         || el.email === searchTerm
             //         || el.phone === searchTerm
             // });
-            console.log(filteredResults);
             this.setState({ results: filteredResults })
         }
+        //empty the search field after search complete
         this.setState({
             userInput: ""
         });
     };
+
+    sortByFirstName = () => {
+        let firstNameSort = this.state.results.sort(compare)
+        function compare(a, b) {
+            const nameA = a.name.first;
+            const nameB = b.name.first;
+            if (nameA > nameB) {
+                return 1;
+            } else if (nameA < nameB) {
+                return -1
+            } else if (nameA === nameB) {
+                return 0;
+            }
+        }
+        this.setState({ result: firstNameSort })
+    }
 
     render() {
         const rows = this.state.results;
@@ -98,7 +117,7 @@ class EmployeeTable extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell></TableCell>
-                            <TableCell align="left"><TableSortLabel>Name</TableSortLabel></TableCell>
+                            <TableCell align="left"><TableSortLabel onClick={this.sortByFirstName}>Name</TableSortLabel></TableCell>
                             <TableCell align="left">Phone Number</TableCell>
                             <TableCell align="left">Email</TableCell>
                             <TableCell align="left">Location</TableCell>
@@ -120,7 +139,7 @@ class EmployeeTable extends Component {
                             ))
                             :
                             <TableRow>
-                                <TableCell align="center" colSpan={5}>Loading...</TableCell>
+                                <TableCell align="center" colSpan={5}>No results found</TableCell>
                             </TableRow>
                         }
                     </TableBody>
