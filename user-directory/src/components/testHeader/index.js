@@ -1,10 +1,9 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { AppBar, Toolbar, IconButton, Typography, InputBase } from '@material-ui/core'
 import { fade, makeStyles } from '@material-ui/core/styles';
-
-
+import SearchIcon from '@material-ui/icons/Search';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import App from '../../App';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,25 +60,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SearchAppBar({ state, handleInputChange, handleFormSubmit }) {
+export default function SearchAppBar({ onChange, onClick }) {
     const classes = useStyles();
 
     return (
-        <div className={classes.root} >
+        <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    {/* <IconButton
+                    <IconButton
                         edge="start"
-                        className={classes.menuButton}
+                        className={classes.homeButton}
                         color="inherit"
-                        aria-label="open drawer"
+                        aria-label="show all employees"
+                        onClick={onClick}
                     >
-                        <MenuIcon />
-                    </IconButton> */}
+                        <HomeOutlinedIcon />
+                    </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
                         Employee Directory
           </Typography>
-                    {/* <div className={classes.search}>
+                    <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
@@ -90,9 +90,9 @@ export default function SearchAppBar({ state, handleInputChange, handleFormSubmi
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
-                            onChange={handleInputChange}
+                            onChange={onChange}
                         />
-                    </div> */}
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>
