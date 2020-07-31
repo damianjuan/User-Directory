@@ -9,34 +9,11 @@ function EmployeeTable({ results, sortByFirstName }) {
 
     return (
         <TableContainer component={Paper} >
-            {/* <form className="form-inline" style={{ marginTop: "5px", marginLeft: "5px" }} >
-                <input
-                    className="form-control mr-sm-2 m1"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                    value={this.state.value}
-                    onChange={this.handleInputChange}
-                    name="userInput" />
-                <button
-                    className="btn btn-outline-primary my-2 my-sm-0"
-                    type="submit"
-                    onClick={this.handleFormSubmit}
-                >Search</button>
-                <button
-                    className="btn btn-outline-primary my-2 my-sm-0"
-                    type="submit"
-                    onClick={this.getEmployees}
-                    style={{ marginLeft: "8px" }}
-                >Show All Employees</button>
-            </form> */}
-
             <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell></TableCell>
                         <TableCell align="left"><TableSortLabel onClick={sortByFirstName} >Name</TableSortLabel></TableCell>
-                        {/* onClick={this.sortByFirstName} removed from line 38 */}
                         <TableCell align="left">Phone Number</TableCell>
                         <TableCell align="left">Email</TableCell>
                         <TableCell align="left">Location</TableCell>
