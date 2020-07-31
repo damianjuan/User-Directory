@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, IconButton, Typography, InputBase } from '@material-ui/core'
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import ClearIcon from '@material-ui/icons/Clear';
 import App from '../../App';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    clearIcon: {
+        color: 'white'
     },
     inputRoot: {
         color: 'inherit',
@@ -84,6 +87,9 @@ export default function SearchAppBar({ onChange, onClick, onSubmit }) {
                             onChange={onChange}
                             onSubmit={onSubmit}
                         />
+                        <IconButton onClick={onClick}>
+                            <ClearIcon className={classes.clearIcon} />
+                        </IconButton>
                     </div>
                 </Toolbar>
             </AppBar>

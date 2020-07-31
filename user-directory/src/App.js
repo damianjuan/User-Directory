@@ -36,6 +36,10 @@ class App extends Component {
     this.setState({ displayedResults })
   };
 
+  handleClearInput = () => {
+    this.setState({ displayedResults: this.state.results })
+  }
+
   sortByFirstName = () => {
     const displayedResults = this.state.displayedResults.sort(compare)
     function compare(a, b) {
@@ -52,6 +56,7 @@ class App extends Component {
     this.setState({ displayedResults })
   }
 
+
   render() {
     return (
       <>
@@ -60,7 +65,7 @@ class App extends Component {
           onSubmit={this.handleFormSubmit}
           state={this.state}
           sortByFirstName={this.sortByFirstName}
-          onClick={this.getEmployees} />
+          onClick={this.handleClearInput} />
         <EmployeeTable
           sortByFirstName={this.sortByFirstName}
           results={this.state.displayedResults}
