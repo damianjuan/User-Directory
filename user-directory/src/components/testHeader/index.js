@@ -67,15 +67,6 @@ export default function SearchAppBar({ onChange, onClick, onSubmit }) {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.homeButton}
-                        color="inherit"
-                        aria-label="show all employees"
-                        onClick={onClick}
-                    >
-                        <HomeOutlinedIcon />
-                    </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
                         Employee Directory
           </Typography>
