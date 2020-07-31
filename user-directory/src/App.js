@@ -20,7 +20,7 @@ class App extends Component {
 
   //update state with user input as it changes. must do so that userInput state is set before handleFormSubmit fires or the search wont be complete
   handleInputChange = event => {
-    // Getting the value and name of the input which triggered the change
+    // Getting the value of the input which triggered the change
     event.preventDefault();
     let value = event.target.value;
     const regexp = new RegExp(value, 'i');
@@ -36,6 +36,7 @@ class App extends Component {
     this.setState({ displayedResults })
   };
 
+  //when search input is cleared set displayResults back to original list of employee
   handleClearInput = () => {
     this.setState({ displayedResults: this.state.results })
   }
