@@ -1,10 +1,9 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { AppBar, Toolbar, IconButton, Typography, InputBase } from '@material-ui/core'
 import { fade, makeStyles } from '@material-ui/core/styles';
-
-
+import SearchIcon from '@material-ui/icons/Search';
+import ClearIcon from '@material-ui/icons/Clear';
+import App from '../../App';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    clearIcon: {
+        color: 'white'
+    },
     inputRoot: {
         color: 'inherit',
     },
@@ -61,25 +63,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SearchAppBar({ state, handleInputChange, handleFormSubmit }) {
+export default function SearchAppBar({ onChange, onClick, onSubmit }) {
     const classes = useStyles();
 
     return (
-        <div className={classes.root} >
+        <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    {/* <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <MenuIcon />
-                    </IconButton> */}
                     <Typography className={classes.title} variant="h6" noWrap>
                         Employee Directory
           </Typography>
-                    {/* <div className={classes.search}>
+                    <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
@@ -90,9 +84,13 @@ export default function SearchAppBar({ state, handleInputChange, handleFormSubmi
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
-                            onChange={handleInputChange}
+                            onChange={onChange}
+                            onSubmit={onSubmit}
                         />
-                    </div> */}
+                        <IconButton onClick={onClick}>
+                            <ClearIcon className={classes.clearIcon} />
+                        </IconButton>
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>
