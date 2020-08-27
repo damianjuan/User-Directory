@@ -13,7 +13,13 @@ function EmployeeTable({ results, sortByFirstName }) {
                 <TableHead>
                     <TableRow>
                         <TableCell></TableCell>
-                        <TableCell align="left"><TableSortLabel onClick={sortByFirstName} >Name</TableSortLabel></TableCell>
+                        <TableCell align="left">
+                            <TableSortLabel
+
+                                direction={'des'}
+                                onClick={sortByFirstName}
+
+                            >Name</TableSortLabel></TableCell>
                         <TableCell align="left">Phone Number</TableCell>
                         <TableCell align="left">Email</TableCell>
                         <TableCell align="left">Location</TableCell>

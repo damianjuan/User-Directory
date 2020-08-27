@@ -11,14 +11,14 @@ class App extends Component {
     displayedResults: [],
     userInput: ""
   };
-  // when table component mounts get employees from API and assign to results state
+  // when table component mounts get employees from API and assign to results and displayedResults. results is immutable. this prevents having to make an api call every time there is a need to go back to the full list of employees
   componentDidMount() {
     API.getUsers()
       .then(res => this.setState({ results: res.data.results, displayedResults: res.data.results }))
       .catch(err => console.log(err));
   };
 
-  //update state with user input as it changes. must do so that userInput state is set before handleFormSubmit fires or the search wont be complete
+  //update state with user input as it changes. filter display based on search as user types. need to add debounce for performance 
   handleInputChange = event => {
     // Getting the value of the input which triggered the change
     event.preventDefault();
@@ -41,6 +41,7 @@ class App extends Component {
     this.setState({ displayedResults: this.state.results })
   }
 
+  //sort table by first name
   sortByFirstName = () => {
     const displayedResults = this.state.displayedResults.sort(compare)
     function compare(a, b) {
